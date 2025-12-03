@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Filament Inventory</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body { font-family: Arial; margin: 40px; background: #f8f9fa; }
+h1 { text-align:center; }
+form { display:flex; gap:10px; justify-content:center; margin-bottom:20px; }
+input, select, button { padding:8px; font-size:14px; }
+table { width:80%; margin:0 auto; border-collapse: collapse; }
+th, td { border:1px solid #ccc; padding:10px; text-align:center; }
+th { background:#007bff; color:white; }
+tr:nth-child(even){background:#e9ecef;}
+.delete-btn { background:red; color:white; border:none; padding:5px 10px; cursor:pointer; }
+</style>
+</head>
+<body>
+<h1>🎨 Filament Inventory</h1>
+
+{% if authenticated %}
+<form action="/add" method="POST">
+    <input type="text" name="color" placeholder="Color" required>
+    <input type="number" step="0.01" name="weight" placeholder="Weight (kg)" required>
+    <select name="ftype" required>
+      <option value="">Type</option>
+      <option value="PLA">PLA</option>
+      <option value="PLA Matte">PLA Matte</option>
+      <option value="PLA+">PLA+</option>
+      <option value="PETG">PETG</option>
+      <option value="ABS">ABS</option>
+      <option value="TPU">TPU</option>
+    </select>
+    <input type="text" name="manufacturer" placeholder="Manufacturer" required>
+    <button type="submit">Add</button>
+</form>
+{% else %}
+<form action="/login" method="POST" style="text-align:center; margin-bottom:20px;">
+    <input type="password" name="password" placeholder="Enter password to modify">
+    <button type="submit">Unlock</button>
+</form>
+{% endif %}
+
+<table>
+<tr>
+  <th>Color</th>
+  <th>Weight (kg)</th>
+  <th>Type</th>
+  <th>Manufacturer</th>
+  {% if authenticated %}<th>Actions</th>{% endif %}
+</tr>
+{% for f in filaments %}
+<tr>
+  <td>{{ f.color }}</td>
+  <td>{{ f.weight }}</td>
+  <td>{{ f.ftype }}</td>
+  <td>{{ f.manufacturer }}</td>
+  {% if authenticated %}
+  <td>
+    <a href="/edit/{{ f.id }}"><button>Edit</button></a>
+    <a href="/delete/{{ f.id }}"><button class="delete-btn">Delete</button></a>
+  </td>
+  {% endif %}
+</tr>
+{% endfor %}
+</table>
+
+<h2 style="text-align:center;">Statistics</h2>
+<canvas id="typeChart" width="400" height="200"></canvas>
+<canvas id="weightChart" width="400" height="200"></canvas>
+
+<script>
+const typeData = {
+    labels: {{ type_counts.keys()|list }},
+    datasets: [{
+        label: 'Number of Filaments',
+        data: {{ type_counts.values()|list }},
+        backgroundColor: 'rgba(0,123,255,0.6)'
+    }]
+};
+
+const weightData = {
+    labels: {{ type_weights.keys()|list }},
+    datasets: [{
+        label: 'Total Weight (kg)',
+        data: {{ type_weights.values()|list }},
+        backgroundColor: 'rgba(40,167,69,0.6)'
+    }]
+};
+
+new Chart(document.getElementById('typeChart'), { type:'bar', data:typeData });
+new Chart(document.getElementById('weightChart'), { type:'bar', data:weightData });
+</script>
+
+{% if authenticated %}
+<p style="text-align:center;"><a href="/logout">Lock modifications</a></p>
+{% endif %}
+
+</body>
+</html>

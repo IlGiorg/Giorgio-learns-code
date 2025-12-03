@@ -48,7 +48,7 @@ print("Coke: ", nine)
 print("Fanta: " , ten)
 print(" ")
 sum= int (one + two)
-print= (sum ()
+print= ("Total items ordered: " , sum)
 # Goodbye message
 
 print(" ")
