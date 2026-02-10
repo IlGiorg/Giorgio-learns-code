@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Giovanni Pagani Studio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Inter, sans-serif;
+background:white;
+color:black;
+display:flex;
+}
+
+/* ================= LEFT PANEL ================= */
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:300px;
+height:100vh;
+padding:50px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+background:white;
+border-right:1px solid #eee;
+}
+
+.brand small{
+font-size:12px;
+opacity:0.6;
+}
+
+.brand h1{
+font-family:'Playfair Display', serif;
+font-size:18px;
+margin-top:8px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.menu a{
+text-decoration:none;
+color:black;
+font-size:14px;
+letter-spacing:1px;
+}
+
+/* ================= RIGHT SCROLL ================= */
+
+.content{
+margin-left:300px;
+width:calc(100% - 300px);
+}
+
+/* GENERIC SECTION */
+
+.section{
+min-height:100vh;
+padding:100px 80px;
+display:flex;
+gap:80px;
+align-items:flex-start;
+}
+
+/* IMAGE SIDE */
+
+.image-col{
+width:50%;
+}
+
+.image-col img{
+width:100%;
+}
+
+/* TEXT SIDE */
+
+.text-col{
+width:50%;
+}
+
+.category{
+font-size:12px;
+opacity:0.6;
+margin-bottom:8px;
+}
+
+.title{
+font-family:'Playfair Display', serif;
+font-size:32px;
+margin-bottom:20px;
+}
+
+/* ABOUT SPECIAL */
+
+.about-image{
+position:sticky;
+top:100px;
+}
+
+/* CONTACT */
+
+.contact p{
+margin-bottom:15px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+body{
+flex-direction:column;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+border-right:none;
+border-bottom:1px solid #eee;
+}
+
+.content{
+margin-left:0;
+width:100%;
+}
+
+.section{
+flex-direction:column;
+padding:60px 30px;
+}
+
+.image-col,
+.text-col{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LEFT PANEL -->
+
+<div class="sidebar">
+
+<div class="brand">
+<small>Projects since 1996</small>
+<h1>GIOVANNI PAGANI STUDIO</h1>
+</div>
+
+<nav class="menu">
+<a href="#architecture">Architecture</a>
+<a href="#design">Design</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
+
+</div>
+
+<!-- RIGHT CONTENT -->
+
+<div class="content">
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="section">
+
+<div class="image-col">
+<img src="/assets/img/homepage/project1.jpg">
+</div>
+
+<div class="text-col">
+<div class="category">ARCHITECTURE</div>
+<div class="title">Private Villa</div>
+<p>
+Gio’ develops a language that brings together art, architecture and design in a unique aesthetic.
+</p>
+</div>
+
+</section>
+
+<!-- DESIGN -->
+<section id="design" class="section">
+
+<div class="image-col">
+<img src="/assets/img/homepage/project2.jpg">
+</div>
+
+<div class="text-col">
+<div class="category">DESIGN</div>
+<div class="title">Saint Germain Sofa</div>
+<p>
+His design expresses refined eclecticism where every object tells its own story.
+</p>
+</div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+
+<div class="image-col about-image">
+<img src="/assets/img/homepage/about.jpg">
+</div>
+
+<div class="text-col">
+<div class="title">About</div>
+
+<p>
+Giovanni Pagani founded his studio in 1996 in Parma with the aim of offering architectural
+and design solutions driven by unconventional elegance.
+</p>
+
+<p>
+He collaborates with international brands including B&B Italia, Armani Casa and many others.
+</p>
+
+<p>
+Strong multicultural influences enrich his creative universe including cinema,
+painting and music.
+</p>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact">
+
+<div class="text-col">
+
+<div class="title">Contact</div>
+
+<p><strong>Studio</strong></p>
+
+<p>
+Via San Michele del Carso 11<br>
+20121 Milano, Italy
+</p>
+
+<p>
+info@giovannipaganistudio.it
+</p>
+
+</div>
+
+</section>
+
+</div>
+
+</body>
+</html>
