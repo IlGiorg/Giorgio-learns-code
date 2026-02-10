@@ -1,0 +1,15 @@
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.AssemblyInfoInputs.cache
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.AssemblyInfo.cs
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.csproj.CoreCompileInputs.cache
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.sourcelink.json
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\bin\Debug\net8.0\PointsTracker.exe
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\bin\Debug\net8.0\PointsTracker.deps.json
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\bin\Debug\net8.0\PointsTracker.runtimeconfig.json
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\bin\Debug\net8.0\PointsTracker.dll
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\bin\Debug\net8.0\PointsTracker.pdb
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.dll
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\refint\PointsTracker.dll
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.pdb
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\PointsTracker.genruntimeconfig.cache
+C:\Users\Giorgio\Documents\GitHub\Giorgio-learns-code\C#\PointsTracker\obj\Debug\net8.0\ref\PointsTracker.dll

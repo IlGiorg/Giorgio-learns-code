@@ -1,0 +1,23 @@
+<h1>Metro Card Reader</h1>
+<form id="loginform">
+    <input type="text" id="userinput">
+    <input type="password" id="passinput">
+    <input type="submit" value="submit">
+</form>
+<p id="outcome"></p>
+<script>
+    const form = document.getElementById("loginform");
+    form.addEventListener("submit",function(event){
+        event.preventDefault();
+        const username=document.getElementById=("userinput").value;
+        const password=document.getElementById=("passinput").value;   
+        if (username === "secretuser"){
+            document.getElementById("outcome").innerText = "success"
+        }
+        else{
+            document.getElementById("outcome").innerText="Wrong Password"
+        }
+           
+    });
+    
+</script>
