@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PointsTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdbdddbe1e829fc77926b2df8e39e5389fb9d306")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5ad60f947289f3a3c36a110696b685e442f0313")]
 [assembly: System.Reflection.AssemblyProductAttribute("PointsTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PointsTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
