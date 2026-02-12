@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Metro Mainframe Login</title>
+</head>
+<body>
+    <h1>Metro Mainframe</h1>
+    <form id="loginform" action="login.php" method="post">
+        <input type="text" id="userinput" name="userinput" placeholder="Username" required><br>
+        <input type="password" id="passinput" name="passinput" placeholder="Password" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p id="outcome">
+        <?php
+        if (isset($_GET['error'])) {
+            echo "Invalid username or password.";
+        }
+        ?>
+    </p>
+</body>
+</html>
