@@ -3,166 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link href="style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <title>Giovanni Pagani Studio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:Inter, sans-serif;
-background:white;
-color:black;
-display:flex;
-}
-
-/* ================= LEFT PANEL ================= */
-
-.sidebar{
-position:fixed;
-left:0;
-top:0;
-width:300px;
-height:100vh;
-padding:50px;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-background:white;
-border-right:1px solid #eee;
-}
-
-.brand small{
-font-size:12px;
-opacity:0.6;
-}
-
-.brand h1{
-font-family:'Playfair Display', serif;
-font-size:18px;
-margin-top:8px;
-}
-
-.menu{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.menu a{
-text-decoration:none;
-color:black;
-font-size:14px;
-letter-spacing:1px;
-}
-
-/* ================= RIGHT SCROLL ================= */
-
-.content{
-margin-left:300px;
-width:calc(100% - 300px);
-}
-
-/* GENERIC SECTION */
-
-.section{
-min-height:100vh;
-padding:100px 80px;
-display:flex;
-gap:80px;
-align-items:flex-start;
-}
-
-/* IMAGE SIDE */
-
-.image-col{
-width:50%;
-}
-
-.image-col img{
-width:100%;
-}
-
-/* TEXT SIDE */
-
-.text-col{
-width:50%;
-}
-
-.category{
-font-size:12px;
-opacity:0.6;
-margin-bottom:8px;
-}
-
-.title{
-font-family:'Playfair Display', serif;
-font-size:32px;
-margin-bottom:20px;
-}
-
-/* ABOUT SPECIAL */
-
-.about-image{
-position:sticky;
-top:100px;
-}
-
-/* CONTACT */
-
-.contact p{
-margin-bottom:15px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:900px){
-
-body{
-flex-direction:column;
-}
-
-.sidebar{
-position:relative;
-width:100%;
-height:auto;
-border-right:none;
-border-bottom:1px solid #eee;
-}
-
-.content{
-margin-left:0;
-width:100%;
-}
-
-.section{
-flex-direction:column;
-padding:60px 30px;
-}
-
-.image-col,
-.text-col{
-width:100%;
-}
-
-}
-
-</style>
 </head>
 
 <body>
 
-<!-- LEFT PANEL -->
+<!-- ================= SIDEBAR ================= -->
 
 <div class="sidebar">
-
 <div class="brand">
 <small>Projects since 1996</small>
 <h1>GIOVANNI PAGANI STUDIO</h1>
@@ -174,98 +25,192 @@ width:100%;
 <a href="#about">About</a>
 <a href="#contact">Contact</a>
 </nav>
-
 </div>
 
-<!-- RIGHT CONTENT -->
+<!-- ================= CONTENT ================= -->
 
 <div class="content">
 
-<!-- ARCHITECTURE -->
+<!-- ================= ARCHITECTURE ================= -->
+
 <section id="architecture" class="section">
 
-<div class="image-col">
-<img src="/assets/img/homepage/project1.jpg">
+<div class="project">
+
+<div class="project-image">
+<div class="image-wrapper">
+
+<!-- ADD MORE IMAGES HERE -->
+<img src="assets/img/homepage/villa/villa1.jpg" class="active">
+<img src="assets/img/homepage/villa/.jpg">
+<img src="assets/img/homepage/villa/.jpg">
+
+</div>
 </div>
 
-<div class="text-col">
+<div class="project-text">
 <div class="category">ARCHITECTURE</div>
 <div class="title">Private Villa</div>
 <p>
-Gio’ develops a language that brings together art, architecture and design in a unique aesthetic.
+Architecture description here.
 </p>
+</div>
+
 </div>
 
 </section>
 
-<!-- DESIGN -->
+
+<!-- ================= DESIGN ================= -->
+
 <section id="design" class="section">
 
-<div class="image-col">
-<img src="/assets/img/homepage/project2.jpg">
+<div class="project">
+
+<div class="project-image">
+<div class="image-wrapper">
+
+<img src="assets/img/homepage/sofa/sofa1.jpg" class="active">
+<img src="assets/img/homepage/sofa/sofa2.jpg">
+<img src="assets/img/homepage/sofa/sofa3.jpg">
+
+</div>
 </div>
 
-<div class="text-col">
+<div class="project-text">
+<div class="category">DESIGN</div>
+<div class="title">Vicious Sofa</div>
+<p>
+His design is the expression of a refined eclecticism, in which each object becomes the author of its own individual story, and in which the present serves as the medium through which the past is carried into the future, recreating an aesthetic rooted in memory. From these forms of perfect imperfection—born of an unceasing exploration of materials—has developed an artisanal self-production of objects with a distinctive character, capable of holding aesthetics and ethics together through a virtuous supply chain. This process strengthens the culture of making within a network of historic artisan workshops, restoring centrality to the manufacturing gesture. The zeitgeist of Gio’ is that of a fluid, transversal, and hybrid taste, one that blends with ease, personality, and courage different periods, styles, and references. From each it draws a fragment of meaning, and from their sum it shapes a new vision of the relationship between human beings and objects, living spaces, form, and function.</p>
+</div>
+
+</div>
+<!-- Saint Germain Sofa-->
+<div class="project">
+
+<div class="project-image">
+<div class="image-wrapper">
+
+<img src="assets/img/homepage/sofa2/sofa1.png" class="active">
+<img src="assets/img/homepage/sofa2/sofa2.jpg">
+<img src="assets/img/homepage/sofa2/sofa3.jpg">
+
+</div>
+</div>
+
+<div class="project-text">
 <div class="category">DESIGN</div>
 <div class="title">Saint Germain Sofa</div>
 <p>
-His design expresses refined eclecticism where every object tells its own story.
+
 </p>
 </div>
+</div>
+<!-- Vittorio Dining -->
+ <div class="project">
+
+<div class="project-image">
+<div class="image-wrapper">
+
+<img src="assets/img/homepage/vittorio/vittorio1.png" class="active">
+<img src="assets/img/homepage/vittorio/vittorio2.png">
+<img src="assets/img/homepage/vittorio/vittorio3.png">
+<img src="assets/img/homepage/vittorio/vittorio4.png">
+<img src="assets/img/homepage/vittorio/vittorio5.png">
+
+</div>
+</div>
+
+<div class="project-text">
+<div class="category">DESIGN</div>
+<div class="title">Vittorio Dining Table</div>
+<p>
+
+</p>
+</div>
+</div>
+
+<!-- Virginia Sofa Dining -->
+ <div class="project">
+
+<div class="project-image">
+<div class="image-wrapper">
+
+<img src="assets/img/homepage/virginia/virginia1.png" class="active">
+<img src="assets/img/homepage/virginia/virginia2.png">
+<img src="assets/img/homepage/virginia/virginia3.png">
+<img src="assets/img/homepage/virginia/virginia4.png">
+<img src="assets/img/homepage/virginia/virginia5.png">
+
+</div>
+</div>
+
+<div class="project-text">
+<div class="category">DESIGN</div>
+<div class="title">Virginia Outdoor Luxury Sofa</div>
+<p>
+
+</p>
+</div>
+</div>
+
 
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="section">
-
-<div class="image-col about-image">
-<img src="/assets/img/homepage/about.jpg">
 </div>
 
-<div class="text-col">
-<div class="title">About</div>
-
-<p>
-Giovanni Pagani founded his studio in 1996 in Parma with the aim of offering architectural
-and design solutions driven by unconventional elegance.
-</p>
-
-<p>
-He collaborates with international brands including B&B Italia, Armani Casa and many others.
-</p>
-
-<p>
-Strong multicultural influences enrich his creative universe including cinema,
-painting and music.
-</p>
-
+<!-- ================= FULLSCREEN ================= -->
+<div class="fullscreen">
+<img src="">
 </div>
 
-</section>
+<!-- ================= SCRIPT ================= -->
 
-<!-- CONTACT -->
-<section id="contact" class="section contact">
+<script>
 
-<div class="text-col">
+/* ========== FADE CAROUSEL + AUTO SLIDE ========== */
 
-<div class="title">Contact</div>
+document.querySelectorAll('.image-wrapper').forEach(wrapper => {
 
-<p><strong>Studio</strong></p>
+const images = wrapper.querySelectorAll('img');
+let index = 0;
 
-<p>
-Via San Michele del Carso 11<br>
-20121 Milano, Italy
-</p>
+setInterval(() => {
+images[index].classList.remove('active');
+index = (index + 1) % images.length;
+images[index].classList.add('active');
+}, 4000);
 
-<p>
-info@giovannipaganistudio.it
-</p>
+/* FULLSCREEN ON CLICK */
+wrapper.addEventListener('click', () => {
+const active = wrapper.querySelector('.active');
+const fullscreen = document.querySelector('.fullscreen');
+fullscreen.querySelector('img').src = active.src;
+fullscreen.classList.add('active');
+});
 
-</div>
+});
 
-</section>
+/* CLOSE FULLSCREEN */
+document.querySelector('.fullscreen').addEventListener('click', function(){
+this.classList.remove('active');
+});
 
-</div>
+/* ========== SCROLL REVEAL ========== */
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+}
+});
+}, {threshold:0.2});
+
+document.querySelectorAll('.project').forEach(project => {
+observer.observe(project);
+});
+
+</script>
 
 </body>
 </html>

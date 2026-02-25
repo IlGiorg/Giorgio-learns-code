@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "Basketball.sln"
+    "dotnet.defaultSolution": "Basketball.sln",
+    "liveServer.settings.port": 5501
 }
