@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAMsformaMi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background:#f3ead4;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#f37021;
+    color:white;
+    padding:30px 80px 120px 80px;
+    position:relative;
+    clip-path:polygon(0 0,100% 0,100% 85%,0 100%);
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    background:white;
+    color: dimgray;
+    padding:10px 18px;
+    border-radius:6px;
+    font-weight:800;
+    font-size:22px;
+}
+
+.logo span{
+    color:#f37021;
+}
+
+.menu{
+    display:flex;
+    gap:60px;
+    font-weight:600;
+    font-size:20px;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    display:flex;
+    padding:80px;
+    gap:60px;
+}
+
+.left{
+    flex:1;
+}
+
+.left h1{
+    font-size:48px;
+    margin-bottom:30px;
+}
+
+.left p{
+    font-size:22px;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    background:#d8c6a4;
+    padding:18px 30px;
+    border-radius:20px;
+    font-size:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#c9b48e;
+}
+
+.right{
+    width:450px;
+    background:#e8dcc4;
+    padding:60px 40px;
+}
+
+.right h2{
+    font-size:32px;
+    margin-bottom:50px;
+}
+
+/* ================= TIMELINE ================= */
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.event {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.event.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Colonna sinistra: pallino + segmento di linea */
+.event-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 18px;
+}
+
+.dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #f37021;
+    flex-shrink: 0;
+    transform: scale(0);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1;
+}
+
+.event.visible .dot {
+    transform: scale(1);
+}
+
+.line-segment {
+    width: 4px;
+    flex: 1;
+    min-height: 40px;
+    background: #f37021;
+    margin-top: 2px;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+}
+
+.event.visible .line-segment {
+    transform: scaleY(1);
+}
+
+.line-segment.dashed {
+    background: repeating-linear-gradient(
+        to bottom,
+        #f37021 0px,
+        #f37021 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+.event-content {
+    padding-bottom: 44px;
+}
+
+.event:last-child .event-content {
+    padding-bottom: 0;
+}
+
+.event-content h3 {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+@media(max-width:1000px){
+    .main{ flex-direction:column; }
+    .right{ width:100%; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <div class="logo"><span>TRAM</span>sformaMi</div>
+        <div class="menu">
+            <div>La nostra proposta</div>
+            <div>Chi siamo</div>
+            <div>Contatti</div>
+        </div>
+    </nav>
+</header>
+
+<div class="main">
+
+    <div class="left">
+        <h1>Cos'è TRAMsformaMi?</h1>
+        <p>
+            BlaBlaBlaBlaBlaBla arianna censi arianna
+            censiarianna censiariana censiarianna censi
+            MARAN PD MARAN PD MARAN PD MARAN PD
+            MARAN PD MARAN PD MARAN PD MARAN PD
+        </p>
+        <p>
+            wella altro paragrafo Giuliano sei autistico ma ti vogliamo bene
+            CENSILOVER99CENSILOVER99CENSILOVER99CENSILOVER99
+            CENSILOVER99CENSILOVER99CENSILOVER99
+        </p>
+        <div class="btn">Scopri la presentazione dettagliata</div>
+    </div>
+
+    <div class="right">
+        <h2>Avanzamento della campagna</h2>
+
+        <div class="timeline">
+
+            <div class="event" data-index="0">
+                <div class="event-track">
+                    <div class="dot"></div>
+                    <div class="line-segment"></div>
+                </div>
+                <div class="event-content">
+                    <h3>Dicembre 2025</h3>
+                    <p>Lancio della campagna</p>
+                </div>
+            </div>
+
+            <div class="event" data-index="1">
+                <div class="event-track">
+                    <div class="dot"></div>
+                    <div class="line-segment"></div>
+                </div>
+                <div class="event-content">
+                    <h3>Dicembre 2025</h3>
+                    <p>Petizione raccoglie 1000 firme in 3 giorni</p>
+                </div>
+            </div>
+
+            <div class="event" data-index="2">
+                <div class="event-track">
+                    <div class="dot"></div>
+                    <div class="line-segment"></div>
+                </div>
+                <div class="event-content">
+                    <h3>Gennaio/Febbraio 2026</h3>
+                    <p>I sleep</p>
+                </div>
+            </div>
+
+            <div class="event" data-index="3">
+                <div class="event-track">
+                    <div class="dot"></div>
+                    <div class="line-segment dashed"></div>
+                </div>
+                <div class="event-content">
+                    <p><strong>Uscita GTA VI e Circle Line</strong></p>
+                </div>
+            </div>
+
+            <div class="event" data-index="4">
+                <div class="event-track">
+                    <div class="dot"></div>
+                </div>
+                <div class="event-content">
+                    <p><strong>Lol non avrete mai l'asservimento semaforico</strong></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+const events = document.querySelectorAll(".event");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const idx = parseInt(entry.target.dataset.index);
+            setTimeout(() => {
+                entry.target.classList.add("visible");
+            }, idx * 180);
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
+events.forEach(e => observer.observe(e));
+</script>
+
+</body>
+</html>

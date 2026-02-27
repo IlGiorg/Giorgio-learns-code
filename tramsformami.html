@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAMsformaMi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background:#f3ead4;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#f37021;
+    color:white;
+    padding:30px 80px 120px 80px;
+    position:relative;
+    clip-path:polygon(0 0,100% 0,100% 85%,0 100%);
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    background:white;
+    color: dimgray;
+    padding:10px 18px;
+    border-radius:6px;
+    font-weight:800;
+    font-size:22px;
+}
+
+.logo span{
+    color:#f37021;
+}
+
+.menu{
+    display:flex;
+    gap:60px;
+    font-weight:600;
+    font-size:20px;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    display:flex;
+    padding:80px;
+    gap:60px;
+}
+
+/* LEFT SIDE */
+
+.left{
+    flex:1;
+}
+
+.left h1{
+    font-size:48px;
+    margin-bottom:30px;
+}
+
+.left p{
+    font-size:22px;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    background:#d8c6a4;
+    padding:18px 30px;
+    border-radius:20px;
+    font-size:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#c9b48e;
+}
+
+/* RIGHT SIDE */
+
+.right{
+    width:450px;
+    background:#e8dcc4;
+    padding:60px 40px;
+}
+
+.right h2{
+    font-size:32px;
+    margin-bottom:50px;
+}
+
+/* ================= TIMELINE ================= */
+
+.timeline{
+    position:relative;
+    padding-left:50px;
+}
+
+/* Linea solida (segmento superiore) */
+.timeline-line {
+    position: absolute;
+    left: 10px; /* centro del pallino: left del pallino è -38px + 50px padding = 12px, width 18px → centro a 12+9=21... ricalcoliamo */
+    top: 0;
+    width: 4px;
+    background: #f37021;
+    transition: height 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 0;
+    transform-origin: top;
+}
+
+/* Linea tratteggiata (segmento inferiore) */
+.timeline-dashed {
+    position: absolute;
+    left: 10px;
+    width: 4px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #f37021 0px,
+        #f37021 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    transition: height 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+    height: 0;
+    transform-origin: top;
+}
+
+/* EVENTI */
+.event{
+    position:relative;
+    margin-bottom:50px;
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.event.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* PALLINI — centrati sulla linea */
+/* linea left=10px, width=4px → centro linea = 12px dalla sinistra del .timeline
+   dal .event, left del pallino = 12px − (padding-left .timeline) + offset pallino
+   soluzione diretta: left = -(padding-left) + centro_linea - metà_pallino
+   = -50px + 12px - 9px = -47px */
+.event::before{
+    content:'';
+    position:absolute;
+    left:-47px;
+    top: 6px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:white;
+    border:3px solid #f37021;
+    z-index:1;
+    transform: scale(0);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.event.visible::before {
+    transform: scale(1);
+}
+
+.event h3{
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+@media(max-width:1000px){
+    .main{
+        flex-direction:column;
+    }
+    .right{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <div class="logo"><span>TRAM</span>sformaMi</div>
+        <div class="menu">
+            <div>La nostra proposta</div>
+            <div>Chi siamo</div>
+            <div>Contatti</div>
+        </div>
+    </nav>
+</header>
+
+<div class="main">
+
+    <div class="left">
+        <h1>Cos'è TRAMsformaMi?</h1>
+
+        <p>
+            BlaBlaBlaBlaBlaBla arianna censi arianna
+            censiarianna censiariana censiarianna censi
+            MARAN PD MARAN PD MARAN PD MARAN PD
+            MARAN PD MARAN PD MARAN PD MARAN PD
+        </p>
+
+        <p>
+            wella altro paragrafo Giuliano sei autistico ma ti vogliamo bene
+            CENSILOVER99CENSILOVER99CENSILOVER99CENSILOVER99
+            CENSILOVER99CENSILOVER99CENSILOVER99
+        </p>
+
+        <div class="btn">Scopri la presentazione dettagliata</div>
+    </div>
+
+    <div class="right">
+        <h2>Avanzamento della campagna</h2>
+
+        <div class="timeline" id="timeline">
+
+            <!-- Linea solida animata (dai primi 3 eventi) -->
+            <div class="timeline-line" id="solidLine"></div>
+            <!-- Linea tratteggiata animata (ultimi 2 eventi) -->
+            <div class="timeline-dashed" id="dashedLine"></div>
+
+            <div class="event" data-index="0">
+                <h3>Dicembre 2025</h3>
+                <p>Lancio della campagna</p>
+            </div>
+
+            <div class="event" data-index="1">
+                <h3>Dicembre 2025</h3>
+                <p>Petizione raccoglie 1000 firme in 3 giorni</p>
+            </div>
+
+            <div class="event" data-index="2">
+                <h3>Gennaio/Febbraio 2026</h3>
+                <p>I sleep</p>
+            </div>
+
+            <div class="event" data-index="3" id="splitPoint">
+                <p><strong>Uscita GTA VI e Circle Line</strong></p>
+            </div>
+
+            <div class="event" data-index="4">
+                <p><strong>Lol non avrete mai l'asservimento semaforico</strong></p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+const events = document.querySelectorAll(".event");
+const solidLine = document.getElementById("solidLine");
+const dashedLine = document.getElementById("dashedLine");
+const timeline = document.getElementById("timeline");
+const splitPoint = document.getElementById("splitPoint");
+
+function getRelativeTop(el, container) {
+    return el.getBoundingClientRect().top - container.getBoundingClientRect().top;
+}
+
+function animateLines() {
+    const timelineRect = timeline.getBoundingClientRect();
+
+    // Punto di split = centro del pallino del 4° evento (index 3)
+    const splitTop = getRelativeTop(splitPoint, timeline) + 6 + 9; // top + offset + metà pallino
+    // Ultimo evento
+    const lastEvent = events[events.length - 1];
+    const lastTop = getRelativeTop(lastEvent, timeline) + 6 + 9;
+
+    solidLine.style.top = "0px";
+    solidLine.style.height = splitTop + "px";
+
+    dashedLine.style.top = splitTop + "px";
+    dashedLine.style.height = (lastTop - splitTop) + "px";
+}
+
+// Osserva ogni evento per l'animazione di comparsa
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const idx = parseInt(entry.target.dataset.index);
+            // Ritardo progressivo
+            setTimeout(() => {
+                entry.target.classList.add("visible");
+            }, idx * 150);
+        }
+    });
+}, { threshold: 0.2 });
+
+events.forEach(e => observer.observe(e));
+
+// Avvia animazione linee con un piccolo ritardo (dopo render)
+setTimeout(() => {
+    animateLines();
+}, 200);
+
+window.addEventListener("resize", animateLines);
+</script>
+
+</body>
+</html>
