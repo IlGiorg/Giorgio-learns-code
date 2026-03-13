@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IB Textbook Order</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+  :root {
+    --ink:      #1a1208;
+    --paper:    #faf7f2;
+    --warm:     #f0e8d8;
+    --accent:   #c8400e;
+    --gold:     #b8912a;
+    --muted:    #8a7a68;
+    --sel:      #1a4a2e;
+    --sel-bg:   #e8f5ee;
+    --border:   #e0d8cc;
+    --r:        8px;
+    --shadow:   0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .header-left { display: flex; align-items: baseline; gap: 14px; }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
+  header .subtitle {
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ── NAME BAR ── */
+  .name-bar {
+    background: white;
+    border-bottom: 1.5px solid var(--border);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: var(--shadow);
+  }
+  .name-bar label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .name-bar input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 8px 14px;
+    color: var(--ink);
+    background: var(--paper);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 280px;
+  }
+  .name-bar input:focus { border-color: var(--accent); }
+  .name-bar .hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    flex: 1;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    padding: 24px 32px 100px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .col-section {
+    margin-bottom: 16px;
+  }
+  .col-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    display: inline;
+  }
+  .col-tag {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: white;
+    border: 1px solid var(--border);
+    padding: 2px 9px;
+    border-radius: 20px;
+    vertical-align: middle;
+  }
+
+  /* ── COLUMNS GRID ── */
+  .columns-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .subject-column {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .subject-column h3 {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--warm);
+  }
+
+  .book-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── BOOK CARD — horizontal, compact ── */
+  .book-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px 10px 10px;
+    border: 1.5px solid #ede5d8;
+    border-radius: var(--r);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: var(--paper);
+    user-select: none;
+    position: relative;
+  }
+  .book-card:hover {
+    border-color: var(--accent);
+    background: #fff8f5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(200,64,14,0.1);
+  }
+  .book-card.selected {
+    border-color: var(--sel);
+    background: var(--sel-bg);
+    box-shadow: 0 2px 8px rgba(26,74,46,0.12);
+  }
+  .book-card.selected .check { opacity: 1; }
+
+  .check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 18px;
+    height: 18px;
+    background: var(--sel);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+  }
+  .check svg { width: 10px; height: 10px; fill: white; }
+
+  .book-thumb {
+    width: 56px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 3px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+    background: #e0d8cc;
+  }
+  .book-thumb-placeholder {
+    width: 56px;
+    height: 75px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #d0c8bc, #b8a898);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.58rem;
+    color: #888;
+    text-align: center;
+    padding: 4px;
+  }
+
+  .book-info { flex: 1; min-width: 0; padding-right: 20px; }
+  .book-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .book-prices {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+  .book-price-discounted {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--sel);
+  }
+  .book-price-original {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+  .book-saving {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: #ffeee8;
+    padding: 1px 6px;
+    border-radius: 10px;
+  }
+
+  /* ── BASKET BAR ── */
+  .basket {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--ink);
+    color: var(--paper);
+    border-top: 3px solid var(--gold);
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+  }
+  .basket-items {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    max-height: 56px;
+    overflow: hidden;
+  }
+  .basket-tag {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .basket-empty {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+  }
+  .basket-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+    white-space: nowrap;
+  }
+  .basket-total {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .basket-savings {
+    font-size: 0.7rem;
+    color: #6fcf97;
+    font-weight: 600;
+  }
+  .basket-shipping {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .btn-generate {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--r);
+    padding: 11px 24px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .btn-generate:hover { background: #a83308; }
+  .btn-generate:active { transform: scale(0.97); }
+  .btn-generate:disabled { background: #666; cursor: not-allowed; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    top: 80px;
+    right: 24px;
+    background: var(--sel);
+    color: white;
+    padding: 11px 18px;
+    border-radius: var(--r);
+    font-weight: 600;
+    font-size: 0.85rem;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1100px) { .columns-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) {
+    .columns-grid { grid-template-columns: 1fr; }
+    header, .name-bar { padding-left: 20px; padding-right: 20px; }
+    main { padding: 16px 16px 100px; }
+    .basket { padding: 10px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>IB Textbook Order</h1>
+    <span class="subtitle">Book List Generator</span>
+  </div>
+</header>
+
+<div class="name-bar">
+  <label>Student Name</label>
+  <input type="text" id="studentName" placeholder="e.g. Alice Johnson" />
+  <span class="hint">Enter name, select books below, then generate your PDF order.</span>
+</div>
+
+<main>
+  <div class="col-section">
+    <h2>Select Textbooks</h2>
+    <span class="col-tag">Click to toggle</span>
+  </div>
+  <div class="columns-grid" id="booksGrid"></div>
+</main>
+
+<div class="basket" id="basket">
+  <div class="basket-items" id="basketItems">
+    <span class="basket-empty">No books selected yet</span>
+  </div>
+  <div class="basket-summary">
+    <div class="basket-total" id="basketTotal">£0.00</div>
+    <div class="basket-savings" id="basketSavings"></div>
+    <div class="basket-shipping" id="basketShipping">+ £3.00 shipping</div>
+  </div>
+  <button class="btn-generate" id="btnGenerate" onclick="generatePDF()">
+    Generate PDF ↓
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="books.config.js"></script>
+<script>
+const selectedBooks = new Set();
+const cfg = STORE_CONFIG;
+
+function imgPath(f) { return cfg.imageDir + f; }
+
+function bookData(key) {
+  if (cfg.books[key]) return { key, ...cfg.books[key] };
+  const k = Object.keys(cfg.books).find(k => k.toLowerCase() === key.toLowerCase());
+  return k ? { key: k, ...cfg.books[k] } : null;
+}
+
+function fmt(n) { return cfg.currency + n.toFixed(2); }
+
+// ── Build UI ──────────────────────────────────────────────────
+const COLUMN_LABELS = ["Mathematics", "Science", "Humanities", "Group F / Additional"];
+
+function buildGrid() {
+  const cols = [new Set(), new Set(), new Set(), new Set()];
+  cfg.students.forEach(row => row.forEach((s, i) => { if (s && s.trim()) cols[i].add(s.trim()); }));
+
+  const grid = document.getElementById('booksGrid');
+  grid.innerHTML = '';
+
+  cols.forEach((subjSet, colIdx) => {
+    const col = document.createElement('div');
+    col.className = 'subject-column';
+
+    const h = document.createElement('h3');
+    h.textContent = COLUMN_LABELS[colIdx];
+    col.appendChild(h);
+
+    const cards = document.createElement('div');
+    cards.className = 'book-cards';
+
+    const seen = new Set();
+    [...subjSet].forEach(rawKey => {
+      const bd = bookData(rawKey);
+      if (!bd || seen.has(bd.title)) return;
+      seen.add(bd.title);
+
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.dataset.key = rawKey;
+      card.onclick = () => toggleBook(rawKey, card);
+
+      // Checkmark
+      const chk = document.createElement('div');
+      chk.className = 'check';
+      chk.innerHTML = `<svg viewBox="0 0 12 12"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+      // Thumb
+      const img = document.createElement('img');
+      img.className = 'book-thumb';
+      img.src = imgPath(bd.image);
+      img.alt = bd.title;
+      img.onerror = function() {
+        this.style.display = 'none';
+        const ph = document.createElement('div');
+        ph.className = 'book-thumb-placeholder';
+        ph.textContent = bd.title.substring(0, 14);
+        card.insertBefore(ph, img.nextSibling);
+      };
+
+      const info = document.createElement('div');
+      info.className = 'book-info';
+
+      const name = document.createElement('div');
+      name.className = 'book-name';
+      name.textContent = bd.title;
+
+      const prices = document.createElement('div');
+      prices.className = 'book-prices';
+
+      const dp = document.createElement('span');
+      dp.className = 'book-price-discounted';
+      dp.textContent = fmt(bd.price);
+      prices.appendChild(dp);
+
+      if (bd.originalPrice && bd.originalPrice !== bd.price) {
+        const op = document.createElement('span');
+        op.className = 'book-price-original';
+        op.textContent = fmt(bd.originalPrice);
+        prices.appendChild(op);
+
+        const saving = bd.originalPrice - bd.price;
+        if (saving > 0) {
+          const sv = document.createElement('span');
+          sv.className = 'book-saving';
+          sv.textContent = 'Save ' + fmt(saving);
+          prices.appendChild(sv);
+        }
+      }
+
+      info.append(name, prices);
+      card.append(chk, img, info);
+      cards.appendChild(card);
+    });
+
+    col.appendChild(cards);
+    grid.appendChild(col);
+  });
+}
+
+function toggleBook(key, cardEl) {
+  if (selectedBooks.has(key)) {
+    selectedBooks.delete(key);
+    cardEl.classList.remove('selected');
+  } else {
+    selectedBooks.add(key);
+    cardEl.classList.add('selected');
+  }
+  updateBasket();
+}
+
+function updateBasket() {
+  const items = document.getElementById('basketItems');
+  const totalEl = document.getElementById('basketTotal');
+  const savingsEl = document.getElementById('basketSavings');
+
+  if (selectedBooks.size === 0) {
+    items.innerHTML = '<span class="basket-empty">No books selected yet</span>';
+    totalEl.textContent = fmt(cfg.shippingCost);
+    savingsEl.textContent = '';
+    return;
+  }
+
+  items.innerHTML = '';
+  let subtotal = 0, totalOriginal = 0;
+  selectedBooks.forEach(key => {
+    const bd = bookData(key);
+    if (!bd) return;
+    subtotal += bd.price;
+    totalOriginal += (bd.originalPrice || bd.price);
+    const tag = document.createElement('span');
+    tag.className = 'basket-tag';
+    // Short label
+    tag.textContent = key;
+    items.appendChild(tag);
+  });
+
+  const total = subtotal + cfg.shippingCost;
+  totalEl.textContent = fmt(total);
+
+  const saved = totalOriginal - subtotal;
+  if (saved > 0) {
+    savingsEl.textContent = '✓ Saving ' + fmt(saved) + ' vs RRP';
+  } else {
+    savingsEl.textContent = '';
+  }
+}
+
+function resetOrder() {
+  selectedBooks.clear();
+  document.querySelectorAll('.book-card.selected').forEach(c => c.classList.remove('selected'));
+  document.getElementById('studentName').value = '';
+  updateBasket();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── PDF Generation ────────────────────────────────────────────
+async function generatePDF() {
+  const name = document.getElementById('studentName').value.trim();
+  if (!name) { showToast('Please enter a student name first.'); return; }
+  if (selectedBooks.size === 0) { showToast('Please select at least one book.'); return; }
+
+  const btn = document.getElementById('btnGenerate');
+  btn.disabled = true;
+  btn.textContent = 'Generating…';
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const PW = 210, PH = 297;
+    const margin = 16;
+    const contentW = PW - margin * 2;
+
+    // Palette — print-friendly (no full black fills)
+    const C_INK    = [30, 22, 10];
+    const C_DARK   = [45, 35, 20];       // header bg (dark brown, not pure black)
+    const C_PAPER  = [252, 249, 244];
+    const C_WARM   = [245, 238, 226];
+    const C_ACCENT = [200, 64, 14];
+    const C_GOLD   = [184, 145, 42];
+    const C_MUTED  = [140, 124, 106];
+    const C_LINE   = [220, 210, 196];
+    const C_GREEN  = [26, 90, 48];
+    const C_SAVING = [180, 40, 10];
+
+    // ── Background
+    doc.setFillColor(...C_PAPER);
+    doc.rect(0, 0, PW, PH, 'F');
+
+    // ── Header band — dark brown (not black, prints much better)
+    doc.setFillColor(...C_DARK);
+    doc.rect(0, 0, PW, 20, 'F');
+    // Gold rule
+    doc.setFillColor(...C_GOLD);
+    doc.rect(0, 20, PW, 0.8, 'F');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(245, 238, 220);
+    doc.text(cfg.storeName.toUpperCase(), margin, 13);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(...C_GOLD);
+    const today = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' });
+    doc.text(today, PW - margin, 13, { align: 'right' });
+
+    // ── Invoice title area
+    let y = 32;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(...C_INK);
+    doc.text('Book Order', margin, y);
+
+    // Accent rule under title
+    doc.setFillColor(...C_ACCENT);
+    doc.rect(margin, y + 2.5, 22, 0.8, 'F');
+
+    // Student name block (right side, same row)
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(...C_MUTED);
+    doc.text('PREPARED FOR', PW - margin, y - 6, { align: 'right' });
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(...C_INK);
+    doc.text(name, PW - margin, y + 1, { align: 'right' });
+
+    // ── Thin divider
+    y += 12;
+    doc.setDrawColor(...C_LINE);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, PW - margin, y);
+    y += 7;
+
+    // ── Table column header
+    const IMG_W = 16, IMG_COL = margin;
+    const TITLE_COL = margin + IMG_W + 4;
+    const ORIG_COL  = PW - margin - 32;
+    const PRICE_COL = PW - margin;
+    const TITLE_W   = ORIG_COL - TITLE_COL - 4;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.setTextColor(...C_MUTED);
+    doc.text('COVER',        IMG_COL, y);
+    doc.text('TITLE / AUTHOR', TITLE_COL, y);
+    doc.text('RRP',          ORIG_COL,  y, { align: 'right' });
+    doc.text('YOUR PRICE',   PRICE_COL, y, { align: 'right' });
+
+    y += 2.5;
+    doc.setDrawColor(...C_INK);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, PW - margin, y);
+    y += 4;
+
+    // ── Book rows
+    let subtotal = 0, totalOrig = 0;
+    const bookList = [];
+    selectedBooks.forEach(key => { const bd = bookData(key); if (bd) bookList.push(bd); });
+
+    const ROW_H = 24;
+
+    for (let i = 0; i < bookList.length; i++) {
+      const bd = bookList[i];
+      subtotal  += bd.price;
+      totalOrig += (bd.originalPrice || bd.price);
+
+      // Alt row background — light warm tint
+      if (i % 2 === 0) {
+        doc.setFillColor(...C_WARM);
+        doc.rect(margin, y - 2, contentW, ROW_H, 'F');
+      }
+
+      // Cover image
+      try {
+        const dataUrl = await loadImageAsDataUrl(imgPath(bd.image));
+        doc.addImage(dataUrl, 'JPEG', IMG_COL, y, IMG_W, IMG_W * 1.33);
+      } catch {
+        doc.setFillColor(210, 202, 190);
+        doc.rect(IMG_COL, y, IMG_W, IMG_W * 1.33, 'F');
+        doc.setFontSize(5); doc.setTextColor(...C_MUTED);
+        doc.text('IMG', IMG_COL + IMG_W/2, y + 10, { align: 'center' });
+      }
+
+      // Title
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.setTextColor(...C_INK);
+      const titleLines = doc.splitTextToSize(bd.title, TITLE_W);
+      const showLines = titleLines.slice(0, 3);
+      doc.text(showLines, TITLE_COL, y + 5);
+
+      // Author / ISBN
+      if (bd.author || bd.isbn) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7);
+        doc.setTextColor(...C_MUTED);
+        const meta = [bd.author, bd.isbn].filter(Boolean).join('  ·  ');
+        doc.text(meta, TITLE_COL, y + 5 + showLines.length * 3.5);
+      }
+
+      // Original price with strikethrough
+      if (bd.originalPrice && bd.originalPrice !== bd.price) {
+        const origStr = fmt(bd.originalPrice);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(...C_MUTED);
+        doc.text(origStr, ORIG_COL, y + 7, { align: 'right' });
+        // Strikethrough line
+        const tw = doc.getTextWidth(origStr);
+        doc.setDrawColor(...C_MUTED);
+        doc.setLineWidth(0.4);
+        doc.line(ORIG_COL - tw, y + 5.8, ORIG_COL, y + 5.8);
+      }
+
+      // Discounted price
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9.5);
+      doc.setTextColor(...C_GREEN);
+      doc.text(fmt(bd.price), PRICE_COL, y + 7, { align: 'right' });
+
+      y += ROW_H;
+
+      // Page break
+      if (y > PH - 70 && i < bookList.length - 1) {
+        doc.addPage();
+        doc.setFillColor(...C_PAPER);
+        doc.rect(0, 0, PW, PH, 'F');
+        y = margin + 10;
+      }
+    }
+
+    // ── Divider before summary
+    y += 4;
+    doc.setDrawColor(...C_LINE);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, PW - margin, y);
+    y += 8;
+
+    // ── Summary table (right-aligned block)
+    const SUM_LEFT  = PW - margin - 80;
+    const SUM_RIGHT = PW - margin;
+
+    function sumRow(label, value, opts = {}) {
+      const { bold = false, highlight = false, valueColor = null, strikeValue = null } = opts;
+
+      if (highlight) {
+        doc.setFillColor(230, 244, 234);
+        doc.rect(SUM_LEFT - 3, y - 4.5, 83, 9, 'F');
+        doc.setDrawColor(...C_GREEN);
+        doc.setLineWidth(0.5);
+        doc.rect(SUM_LEFT - 3, y - 4.5, 83, 9, 'S');
+      }
+
+      doc.setFont('helvetica', bold ? 'bold' : 'normal');
+      doc.setFontSize(bold ? 9 : 8.5);
+      doc.setTextColor(bold ? C_INK[0] : C_MUTED[0], bold ? C_INK[1] : C_MUTED[1], bold ? C_INK[2] : C_MUTED[2]);
+      doc.text(label, SUM_LEFT, y);
+
+      if (strikeValue) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor(...C_MUTED);
+        doc.text(strikeValue, SUM_RIGHT - 18, y, { align: 'right' });
+        const sw = doc.getTextWidth(strikeValue);
+        doc.setDrawColor(...C_MUTED);
+        doc.setLineWidth(0.35);
+        doc.line(SUM_RIGHT - 18 - sw, y - 1, SUM_RIGHT - 18, y - 1);
+      }
+
+      const vc = valueColor || (bold ? C_GREEN : C_MUTED);
+      doc.setFont('helvetica', bold ? 'bold' : 'normal');
+      doc.setFontSize(bold ? 9.5 : 8.5);
+      doc.setTextColor(...vc);
+      doc.text(value, SUM_RIGHT, y, { align: 'right' });
+      y += 8;
+    }
+
+    const shipping = cfg.shippingCost;
+    const totalSaved = totalOrig - subtotal + 30; // +£30 for delivery saving as requested
+
+    sumRow('Subtotal',           fmt(subtotal),  { strikeValue: fmt(totalOrig) });
+    sumRow(cfg.shippingLabel,    fmt(shipping),  {});
+    y += 1;
+    sumRow('TOTAL DUE',          fmt(subtotal + shipping), { bold: true, highlight: true });
+    y += 2;
+    sumRow('Total savings vs RRP (incl. delivery)', fmt(totalSaved), { valueColor: C_SAVING, bold: false });
+
+    // ── Footer — light rule + small text (no black band)
+    const footerY = PH - 12;
+    doc.setDrawColor(...C_LINE);
+    doc.setLineWidth(0.4);
+    doc.line(margin, footerY - 5, PW - margin, footerY - 5);
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(7);
+    doc.setTextColor(...C_MUTED);
+    doc.text('This order is not definitive. Not paid. — ' + cfg.storeName, PW / 2, footerY, { align: 'center' });
+
+    const safeName = name.replace(/[^a-z0-9]/gi, '_');
+    doc.save(`BookOrder_${safeName}.pdf`);
+    showToast('PDF downloaded! ✓');
+    resetOrder();
+
+  } catch (err) {
+    console.error(err);
+    showToast('Error generating PDF — check console.');
+  } finally {
+    const btn = document.getElementById('btnGenerate');
+    btn.disabled = false;
+    btn.textContent = 'Generate PDF ↓';
+  }
+}
+
+function loadImageAsDataUrl(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const c = document.createElement('canvas');
+      c.width = img.naturalWidth; c.height = img.naturalHeight;
+      c.getContext('2d').drawImage(img, 0, 0);
+      resolve(c.toDataURL('image/jpeg', 0.92));
+    };
+    img.onerror = () => reject(new Error('Failed: ' + src));
+    img.src = src;
+  });
+}
+
+buildGrid();
+updateBasket();
+</script>
+</body>
+</html>

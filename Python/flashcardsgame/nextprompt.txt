@@ -1,0 +1,73 @@
+Please implement the following features and improvements into my CS Flashcard Game code:
+
+FEATURES TO ADD:
+
+1. "Multiplayer Duel" - Two players compete on the same device, taking turns answering. Track Player 1 vs Player 2 scores, alternate turns, show whose turn it is, and declare winner at the end.
+
+2. "Daily Challenge" - A curated set of 10 cards that resets daily. Track completion and give special rewards. Add a calendar to show which days challenges were completed.
+
+3. "Performance Heatmap" - Visual grid showing which topics/categories the user struggles with most (color-coded: green=easy, yellow=medium, red=hard).
+
+4. "Learning Curve Graph" - Line chart tracking accuracy percentage over time per category (last 7 days, 30 days, all time).
+
+5. "Weak Spots Identifier" - Algorithm that identifies the 5 cards the user gets wrong most frequently and displays them for focused practice.
+
+6. "Power-Ups Shop" - Earn coins (1 per correct answer). Spend on: Shield (protects from wrong answer), Time Freeze (pause timer 10s), Peek (show first letter), Skip (skip card without penalty), Double Points (next answer worth 2x).
+
+7. "Challenge Mode" with Daily Quests:
+   - "Answer 30 cards without revealing"
+   - "Get 15 correct in a row"
+   - "Play all 3 game modes in one day"
+   - "Score 50+ in Endless mode"
+   - "Win Normal mode in under 12 questions"
+   Add achievements for completing 1 daily quest and completing 3 daily quests.
+
+8. "Time Warp Mode" - Hybrid mode: timer starts at 60 seconds, correct answers add 3 seconds, wrong answers subtract 5 seconds. See how long you can survive.
+
+9. "Sound Effects" - Optional satisfying sounds for correct answers (ding), wrong answers (buzz), achievements (fanfare), and button clicks.
+
+10. "Background Music" - Optional lo-fi study beats that play during gameplay, with volume control and mute option.
+
+ACHIEVEMENTS TO ADD (check for duplicates with existing achievements):
+
+Skill-Based:
+- "Triple Threat" - Win all 3 game modes (Normal, Endless, Speedrun) in one session without closing app
+- "Bullseye" - Win Normal mode with 100% accuracy (no mistakes at all)
+- "Boss Slayer" - Defeat 10 boss questions correctly (for Boss Battle mode)
+- "Puzzle Master" - Play through 30 unique cards in one session
+
+Progression:
+- "Diamond Hands" - Cash out in Endless mode with 100+ points
+- "Time Lord" - Accumulate 24 hours of total playtime
+
+Fun & Hidden:
+- "Owl" - Play a game between 3:00-4:00 AM (secret)
+- "Lucky Charm" - Answer 3 cards correctly without revealing AND admit you didn't know them (add post-game survey)
+- "Wizard" - Complete any mode without ever pressing Reveal
+- "Nostalgia" - Play any game on a Tuesday
+- "Tortoise" - Spend 120+ seconds on a single card
+- "Hare" - Answer 3 cards in under 10 seconds total
+- "Legendary" - Unlock every other achievement
+
+Mode-Specific:
+- "Lightning Rod" - Answer 50 questions in a single 60-second Speedrun game
+- "Infinity" - Score 100+ in Endless mode
+- "Sharpshooter" - Complete Reflex mode with 20+ answers and 100% accuracy
+- "Ultramarathon" - Survive entire 10-minute Marathon and score 150+
+- "Omniscient" - Correctly answer every unique card in database in one session
+
+Risk/Reward:
+- "High Roller" - Cash out in Endless with a prime number score
+- "Joker" - Win a game after being at 0 points
+- "Phoenix" - Play 3 games and lose all, then win the 4th
+- "Balance" - Finish any mode with exactly 21 points
+- "Circus Act" - Win Normal mode using only Skip power-ups (no reveals)
+
+Daily Challenge Achievements:
+- "Daily Dedication" - Complete a daily quest
+- "Weekly Warrior" - Complete 3 daily quests
+
+BUG FIX:
+On the Rewards page, fix scrolling so users can scroll both up and down with two fingers or mouse wheel (currently can only scroll down, not back up).
+
+Implement all of these features and achievements into the existing code structure, maintaining the same coding style, color palette, and UI consistency. Do not add anything beyond what's listed here.

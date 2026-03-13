@@ -1,0 +1,12 @@
+n1=int(input("Number 1"))
+n2=int(input("Number 2"))
+n3=int(input("Number 3"))
+n4=int(input("Number 4"))
+n5=int(input("Number 5"))
+n6=int(input("Number 6"))
+n7=int(input("Number 7"))
+n8=int(input("Number 8"))
+n9=int(input("Number 9"))
+n10=int(input("Number 10"))
+total=n1+n2+n3+n4+n5+n6+n7+n8+n9+n10
+print(total/10)
